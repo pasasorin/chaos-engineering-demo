@@ -11,7 +11,7 @@ resource nsg 'Microsoft.Network/networkSecurityGroups@2023-11-01' existing = {
   name: '${nameprefix}nsg-aks'
 }
 
-resource chaosnsgtarget 'Microsoft.Chaos/targets@2022-10-01-preview' = {
+resource chaosnsgtarget 'Microsoft.Chaos/targets@2026-05-01-preview' = {
   name: 'Microsoft-NetworkSecurityGroup'
   location: location
   scope: nsg

@@ -13,7 +13,7 @@ resource aks 'Microsoft.ContainerService/managedClusters@2022-10-02-preview' exi
 }
 
 // target: aks
-resource chaosakstarget 'Microsoft.Chaos/targets@2022-10-01-preview' = {
+resource chaosakstarget 'Microsoft.Chaos/targets@2026-05-01-preview' = {
   name: 'Microsoft-AzureKubernetesServiceChaosMesh'
   location: location
   scope: aks
@@ -30,7 +30,7 @@ resource chaosakstarget 'Microsoft.Chaos/targets@2022-10-01-preview' = {
 }
 
 // chaos experiment: aks (chaos mesh)
-resource chaosaksexperiment 'Microsoft.Chaos/experiments@2022-10-01-preview' = {
+resource chaosaksexperiment 'Microsoft.Chaos/experiments@2026-05-01-preview' = {
   name: experimentName
   location: location  
   identity: {

@@ -22,7 +22,7 @@ resource keyvault 'Microsoft.KeyVault/vaults@2023-07-01' existing = {
   name: '${nameprefix}kv'
 }
 
-resource chaoskvtarget 'Microsoft.Chaos/targets@2022-10-01-preview' = {
+resource chaoskvtarget 'Microsoft.Chaos/targets@2026-05-01-preview' = {
   name: 'Microsoft-KeyVault'
   location: location
   scope: keyvault
@@ -35,7 +35,7 @@ resource chaoskvtarget 'Microsoft.Chaos/targets@2022-10-01-preview' = {
 }
 
 // chaos experiment: kv
-resource chaoskvexperiment 'Microsoft.Chaos/experiments@2022-10-01-preview' = {
+resource chaoskvexperiment 'Microsoft.Chaos/experiments@2026-05-01-preview' = {
   name: experimentName
   location: location
   identity: {
