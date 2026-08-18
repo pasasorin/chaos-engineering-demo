@@ -108,8 +108,7 @@ resource aks 'Microsoft.ContainerService/managedClusters@2024-05-01' = {
         vnetSubnetID: aksSubnetResourcesId
       }
     ]
-    // Only configure linuxProfile if the cluster is being created for the first time
-    linuxProfile: empty(existingAks.id) ? {
+    linuxProfile: {
       adminUsername: aksLinuxAdminUsername
       ssh: {
         publicKeys: [
@@ -118,7 +117,7 @@ resource aks 'Microsoft.ContainerService/managedClusters@2024-05-01' = {
           }
         ]
       }
-    } : null
+    }
   }
 }
 

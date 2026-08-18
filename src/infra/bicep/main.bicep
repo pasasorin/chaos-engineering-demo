@@ -79,10 +79,6 @@ module containers './resources/containers.bicep' = {
     keyvaultName: keyvault.outputs.keyvaultName
     logAnalyticsId: monitoring.outputs.logAnalyticsWorkspaceId
   }
-  dependsOn: [
-    network
-    keyvault
-  ]
 }
 
 module databases './resources/databases.bicep' = {
@@ -96,9 +92,6 @@ module databases './resources/databases.bicep' = {
     logAnalyticsId: monitoring.outputs.logAnalyticsWorkspaceId
     sqlServerAdmin: sqlServerAdmin
   }
-  dependsOn: [
-    keyvault
-  ]
 }
 
 
@@ -130,7 +123,7 @@ module roleassigmentrg './utils/uami-roleassigment-rg.bicep' = if (deployChaos) 
   name: '${rg.name}-roleassigmentrg'
   scope: rg
   params: {
-    uamiName: (deployChaos) ? uami.outputs.userAssignedIdentityName : ''
+    uamiName: (deployChaos) ? uami!.outputs.userAssignedIdentityName : ''
     uamiRg: rg.name
   }
 }
@@ -140,7 +133,7 @@ module roleassigmentrgvmss './utils/uami-roleassigment-rg.bicep' = if (deployCha
   name: '${rg.name}-roleassigmentrgvmss'
   scope: resourceGroup('${name}-aks-rg')
   params: {
-    uamiName: (deployChaos) ? uami.outputs.userAssignedIdentityName : ''
+    uamiName: (deployChaos) ? uami!.outputs.userAssignedIdentityName : ''
     uamiRg: rg.name
   }
   // We want to deploy this after the AKS:
@@ -157,17 +150,13 @@ module chaos './resources/chaos.bicep' = if (deployChaos) {
     nameprefix: toLower(name)
     location: rg.location
     aksClusterResourceGroup: containers.outputs.aksClusterResourceGroup
-    uamiName: (deployChaos) ? uami.outputs.userAssignedIdentityName : ''
+    uamiName: (deployChaos) ? uami!.outputs.userAssignedIdentityName : ''
   }
   // We want to deploy this last:
   dependsOn: [
-    containers
-    keyvault
     databases
     frontdoor
-    network
     storage
-    monitoring
   ]
 }
 
