@@ -72,7 +72,8 @@ resource acrDiagnostics 'Microsoft.Insights/diagnosticSettings@2021-05-01-previe
   }
 }
 
-resource aks 'Microsoft.ContainerService/managedClusters@2024-05-01' = {
+// Preview API version required: GA versions reject updates to linuxProfile.ssh.publicKeys.keyData
+resource aks 'Microsoft.ContainerService/managedClusters@2024-09-02-preview' = {
   name: aksClusterName
   location: location
   identity: {

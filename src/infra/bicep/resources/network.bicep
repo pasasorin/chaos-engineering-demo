@@ -42,6 +42,14 @@ resource vnet 'Microsoft.Network/virtualNetworks@2021-08-01' = {
           networkSecurityGroup: {
             id: resourceId('Microsoft.Network/networkSecurityGroups', acaSubnetNSGName)
           }
+          delegations: [
+            {
+              name: 'Microsoft.App.environments'
+              properties: {
+                serviceName: 'Microsoft.App/environments'
+              }
+            }
+          ]
         }
       }
     ]
