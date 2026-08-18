@@ -72,7 +72,7 @@ resource acrDiagnostics 'Microsoft.Insights/diagnosticSettings@2021-05-01-previe
   }
 }
 
-resource aks 'Microsoft.ContainerService/managedClusters@2024-03-02-preview' = {
+resource aks 'Microsoft.ContainerService/managedClusters@2024-05-01' = {
   name: aksClusterName
   location: location
   identity: {
