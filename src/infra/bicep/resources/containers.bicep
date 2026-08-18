@@ -113,7 +113,8 @@ resource aks 'Microsoft.ContainerService/managedClusters@2024-05-01' = {
       ssh: {
         publicKeys: [
           {
-            keyData: loadTextContent('../../../../key.pub')
+            // Reference the runtime property of your Azure resource instead of the local file
+            keyData: sshkey.properties.publicKey
           }
         ]
       }
@@ -149,7 +150,7 @@ resource sshkey 'Microsoft.Compute/sshPublicKeys@2023-07-01' = {
   name: sshKeyName
   location: location
   properties: {
-    publicKey:loadTextContent('../../../../key.pub')
+    publicKey: trim(loadTextContent('../../../../key.pub')) // Added trim() to prevent whitespace drift
   }
 }
 
