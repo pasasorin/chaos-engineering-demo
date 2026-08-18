@@ -108,17 +108,17 @@ resource aks 'Microsoft.ContainerService/managedClusters@2024-05-01' = {
         vnetSubnetID: aksSubnetResourcesId
       }
     ]
-    linuxProfile: {
+    // Only configure linuxProfile if the cluster is being created for the first time
+    linuxProfile: empty(existingAks.id) ? {
       adminUsername: aksLinuxAdminUsername
       ssh: {
         publicKeys: [
           {
-            // Reference the runtime property of your Azure resource instead of the local file
             keyData: sshkey.properties.publicKey
           }
         ]
       }
-    }
+    } : null
   }
 }
 
