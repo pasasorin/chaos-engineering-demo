@@ -382,10 +382,7 @@ jobs:
           PRODUCTS_IMAGE_TAG: ${{ github.sha }}
 
       - name: Lint Deployment Manifest
-        uses: azure/k8s-lint@v1
-        with:
-          manifests: ./src/app/ContosoTraders.Api.Products/Manifests/Deployment.yaml
-          lintType: dryrun
+        run: kubectl apply --dry-run=server --namespace default --filename ./src/app/ContosoTraders.Api.Products/Manifests/Deployment.yaml
 
       - name: Create Kubernetes Secret (kv endpoint)
         uses: Azure/k8s-create-secret@v3.0
